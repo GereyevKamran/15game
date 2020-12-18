@@ -7,17 +7,17 @@ class View {
     this.mainContainer = null;
     this.buttonsNumber = null;
     this.buttonsHeaderContainer = null;
-
     this.init();
   }
 
   init = () => {
     this.createGameForm();
+    this.startGame();
   };
 
   createGameForm = () => {
     this.root = document.getElementById("root");
-    this.header = this.createDiv({ className: "main-container__header" });
+    this.header = this.createDiv({ innerText: this.header, className: "main-container__header" });
     this.startButton = this.createButton({
       className: "footer-button__start__button",
       buttonText: "Start",
@@ -60,7 +60,7 @@ class View {
     const div = document.createElement("div");
 
     props.className && (div.className = props.className);
-
+    props.innerText && (div.innerText = props.innerText);
     return div;
   };
 
@@ -72,5 +72,33 @@ class View {
 
     return button;
   };
+
+  countTimer = () => {
+    let totalSeconds = 0;
+    setInterval(function(){
+      ++totalSeconds;
+      let hour = Math.floor(totalSeconds / 3600);
+      let minute = Math.floor((totalSeconds - hour * 3600) / 60);
+      let seconds = totalSeconds - (hour * 3600 + minute * 60);
+      this.header = hour + ":" + minute + ":" + seconds;
+      console.log(this.header = hour + ":" + minute + ":" + seconds)
+
+    }, 1000)
+  }
+
+  startGame = () =>{
+    this.startButton.addEventListener("click", this.countTimer, {once:true})
+  }
+
+  // incrementBtnClick = cb => {
+  //   this.startButton.addEventListener("click", () => {
+  //     cb()
+  //   })
+  // }
+
+  // showCounter = number => {
+  //   this.header.innerText = number;
+  // }
+
 }
 export default View;
