@@ -1,11 +1,7 @@
 class Controller {
-  constructor(view, model) {
+  constructor(view, model) {}
 
-  }
-
-  init = () => {
-
-  };
+  init = () => {};
 
 
 }
