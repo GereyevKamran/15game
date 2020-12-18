@@ -33,6 +33,21 @@ class View {
       className: "main-container__buttons-container",
     });
 
+    for (let i = 0; i <= 15; i ++) {
+
+      const cellButton = this.createButton({
+        className: `cell-div__cell-button cell_${i}`,
+        buttonText: i
+      });
+       
+      const cellDiv = this.createDiv({
+        className: "button-container__cell-div",
+      });
+
+      cellDiv.append(cellButton);
+      this.buttonsNumber.append(cellDiv);
+    };
+
     this.mainContainer.append(this.header);
     this.buttonsHeaderContainer.append(this.buttonsNumber);
     this.mainContainer.append(this.buttonsHeaderContainer);
