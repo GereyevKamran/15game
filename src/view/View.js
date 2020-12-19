@@ -7,12 +7,11 @@ class View {
     this.mainContainer = null;
     this.buttonsNumber = null;
     this.buttonsHeaderContainer = null;
-
-    this.init();
   }
 
   init = () => {
     this.createGameForm();
+
   };
 
   createGameForm = () => {
@@ -22,7 +21,7 @@ class View {
       className: "footer-button__start__button",
       buttonText: "Start",
     });
-    this.footerButton = this.createDiv({
+    this.footer = this.createDiv({
       className: "main-container__footer__button",
     });
     this.buttonsNumber = this.createDiv({
@@ -33,42 +32,44 @@ class View {
       className: "main-container__buttons-container",
     });
 
-    for (let i = 0; i <= 15; i ++) {
-
-      const cellButton = this.createButton({
-        className: `cell-div__cell-button cell_${i}`,
-        buttonText: i
-      });
-       
-      const cellDiv = this.createDiv({
-        className: "button-container__cell-div",
-      });
-
-      cellDiv.append(cellButton);
-      this.buttonsNumber.append(cellDiv);
-    };
-
     this.mainContainer.append(this.header);
     this.buttonsHeaderContainer.append(this.buttonsNumber);
     this.mainContainer.append(this.buttonsHeaderContainer);
-    this.mainContainer.append(this.footerButton);
-    this.footerButton.append(this.startButton);
+    this.mainContainer.append(this.footer);
+    this.footer.append(this.startButton);
     this.root.append(this.mainContainer);
   };
 
-  createDiv = (props) => {
+  createCell = (element) => {
+    const cellButton = this.createButton({
+      className: `cell-div__cell-button`,
+      id: 'cell-'+ element,
+      buttonText: element
+    });
+     
+    const cellDiv = this.createDiv({
+      className: "button-container__cell-div",
+    });
+
+    cellDiv.append(cellButton);
+    this.buttonsNumber.append(cellDiv);
+  };
+
+  createDiv = props => {
     const div = document.createElement("div");
 
     props.className && (div.className = props.className);
+    props.id && (div.id = props.id);
 
     return div;
   };
 
-  createButton = (props) => {
+  createButton = props => {
     const button = document.createElement("button");
 
     props.className && (button.className = props.className);
     props.buttonText && (button.innerText = props.buttonText);
+    props.id && (button.id = props.id);
 
     return button;
   };
