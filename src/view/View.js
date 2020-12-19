@@ -11,18 +11,36 @@ class View {
 
   init = () => {
     this.createGameForm();
-
   };
+
+  resetBtnListener = cb => {
+    this.resetButton.addEventListener('click', () => {
+      cb();
+    });
+  }
+
+  NumbersBtnListener = cb => {
+    this.buttonsNumber.addEventListener('click', (event) => {
+      cb(event.target.innerText);
+    });
+  }
+  
 
   createGameForm = () => {
     this.root = document.getElementById("root");
     this.header = this.createDiv({ className: "main-container__header" });
     this.startButton = this.createButton({
-      className: "footer-button__start__button",
+      className: "footer__start-button",
+      id: "start_button",
       buttonText: "Start",
     });
+    this.resetButton = this.createButton({
+      className: "footer__reset-button",
+      id: "reset_button",
+      buttonText: "Reset",
+    });
     this.footer = this.createDiv({
-      className: "main-container__footer__button",
+      className: "main-container__footer",
     });
     this.buttonsNumber = this.createDiv({
       className: "buttons-container__buttons-number",
@@ -35,8 +53,9 @@ class View {
     this.mainContainer.append(this.header);
     this.buttonsHeaderContainer.append(this.buttonsNumber);
     this.mainContainer.append(this.buttonsHeaderContainer);
-    this.mainContainer.append(this.footer);
     this.footer.append(this.startButton);
+    this.footer.append(this.resetButton);
+    this.mainContainer.append(this.footer);
     this.root.append(this.mainContainer);
   };
 
