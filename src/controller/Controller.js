@@ -2,16 +2,17 @@ class Controller {
   constructor(view, model) {
     this.view = view;
     this.model = model;
-    this.clickCounter = 0;
+    
   }
 
   init = () => {
     this.view.init();
     this.fillCells();
+    this.setNumberDisplay();   
 
     this.view.resetBtnListener(this.resetGame);
     this.view.NumbersBtnListener(this.changePlaces);
-
+    this.view.gameCounter(this.countNumber.bind(this));
   };
 
   changePlaces = number => {
@@ -32,6 +33,16 @@ class Controller {
     this.model.getDataBase().forEach(element => {
       this.view.createCell(element);
     });
+  }
+
+  setNumberDisplay = () => {
+    const number = this.model.getCount();
+    this.view.showGameCount(number);
+  }
+
+  countNumber = () => {
+    this.model.countNumber();
+    this.setNumberDisplay();
   }
 
 }
