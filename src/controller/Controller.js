@@ -1,70 +1,58 @@
 class Controller {
-  constructor(view, model) {
-    this.view = view;
-    this.model = model;    
-  };
-
-  init = () => {
-    this.view.init();
-    this.fillCells();
-    this.setNumberDisplay(); 
-    this.winner();  
-
-    this.view.resetBtnListener(this.resetGame);
-    this.view.NumbersBtnListener(this.changePlaces);
-    this.view.gameCounter(this.countNumber.bind(this));
-  };
-
-  changePlaces = number => {
-    const index = this.model.getDataBase().indexOf(Number(number))
-    this.model.findEmptyCell(index);
-    console.log(this.model.getDataBase())
-    console.log(index);
-    this.fillCells();
-  };
-
-  winner = () => {
-    if(JSON.stringify(this.model.dataBase) === JSON.stringify(this.model.winnerBase)){
-        alert('Win')
+    constructor(view, model) {
+        this.view = view;
+        this.model = model;
     }
-  };
 
-  
+    init = () => {
+        this.view.init();
 
-  resetGame = () => {
-    this.model.shuffleDb();
-    this.fillCells();
-    this.countTimer();
-  };
+        this.view.startBtnListener(this.startGame);
+        this.view.NumbersBtnListener(this.changePlaces);
+    };
 
-  countTimer = () => {
-    let totalSeconds = 0;
-    setInterval(function(){
-      ++totalSeconds;
-      let hour = Math.floor(totalSeconds / 3600);
-      let minute = Math.floor((totalSeconds - hour * 3600) / 60);
-      let seconds = totalSeconds - (hour * 3600 + minute * 60);     
-      document.querySelector(".header__display-date").innerHTML = hour + ":" + minute + ":" + seconds;      
-    }, 1000)    
-  };
+    changePlaces = number => {
+        const index = this.model.getDataBase().indexOf(Number(number));
+        this.model.findEmptyCell(index);
+        this.fillCells();
+        this.view.showCounter(this.model.getCounter());
+        this.win();
+    };
 
-  fillCells = () => {
-    this.view.buttonsNumber.innerHTML = '';
-    this.model.getDataBase().forEach(element => {
-      this.view.createCell(element);
-    });
-  };
+    startGame = () => {
+        this.model.shuffleDb();
+        this.fillCells();
+        clearInterval(this.timer);
+        this.countTimer();
+        this.model.resetCounter();
+        this.view.showCounter(this.model.getCounter());
+    };
 
-  setNumberDisplay = () => {
-    const number = this.model.getCount();
-    this.view.showGameCount(number);
-  };
+    countTimer = () => {
+        let totalSeconds = 0;
+        this.timer = setInterval(() => {
+            ++totalSeconds;
+            let hour = Math.floor(totalSeconds / 3600);
+            let minute = Math.floor((totalSeconds - hour * 3600) / 60);
+            let seconds = totalSeconds - (hour * 3600 + minute * 60);
+            this.time = hour + ':' + minute + ':' + seconds;
+            document.querySelector('.header__display-date').innerHTML = this.time;
+        }, 1000);
+    };
 
-  countNumber = () => {
-    this.model.countNumber();
-    this.setNumberDisplay();
-  }
+    fillCells = () => {
+        this.view.buttonsNumber.innerHTML = '';
+        this.model.getDataBase().forEach(element => {
+            this.view.createCell(element);
+        });
+    };
 
+    win = () => {
+        if (JSON.stringify(this.model.getDataBase()) === JSON.stringify(this.model.getWinComb())) {
+            alert(`Congratulations! Your time is ${this.time}, you have clicked ${this.model.getCounter()} times.`);
+            this.startGame();
+        }
+    };
 }
 
 export default Controller;

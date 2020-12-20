@@ -1,116 +1,99 @@
 class View {
-  constructor() {
-    this.root = null;
-    this.date = null;
-    this.header = null;
-    this.number = null;
-    this.counter = null;
-    this.footerButton = null;
-    this.mainContainer = null;
-    this.buttonsNumber = null;
-    this.buttonsHeaderContainer = null;
-  }
+    constructor() {
+        this.root = null;
+    }
 
-  init = () => {
-    this.createGameForm();   
-    
-  };
+    init = () => {
+        this.createGameForm();
+    };
 
-  resetBtnListener = cb => {
-    this.resetButton.addEventListener('click', () => {
-      cb();
-    });
-  }
+    startBtnListener = cb => {
+        this.resetButton.addEventListener('click', () => {
+            cb();
+        });
+    };
 
-  NumbersBtnListener = cb => {
-    this.buttonsNumber.addEventListener('click', (event) => {
-      cb(event.target.innerText);
-    });
-  }
-  
+    NumbersBtnListener = cb => {
+        this.buttonsNumber.addEventListener('click', event => {
+            cb(event.target.innerText);
+        });
+    };
 
-  createGameForm = () => {
-    this.root = document.getElementById("root");
-    this.header = this.createDiv({ className: "main-container__header" });
-    this.date = this.createDiv({
-      divText: '0:0:0',
-      className: 'header__display-date',
-    });
-    this.number = this.createDiv({
-      divText: '0',
-      className: 'header__display-number',
-    });
-    this.resetButton = this.createButton({
-      className: "footer__reset-button",
-      id: "reset_button",
-      buttonText: "Reset",
-    });
-    this.footer = this.createDiv({
-      className: "main-container__footer",
-    });
-    this.buttonsNumber = this.createDiv({
-      className: "buttons-container__buttons-number",
-    });
-    this.mainContainer = this.createDiv({ className: "root__main-container" });
-    this.buttonsHeaderContainer = this.createDiv({
-      className: "main-container__buttons-container",
-    });
+    createGameForm = () => {
+        this.root = document.getElementById('root');
+        this.header = this.createDiv({ className: 'main-container__header' });
+        this.date = this.createDiv({
+            divText: '0:0:0',
+            className: 'header__display-date',
+        });
+        this.counter = this.createDiv({
+            divText: '0',
+            className: 'header__display-number',
+        });
+        this.resetButton = this.createButton({
+            className: 'footer__reset-button',
+            id: 'reset_button',
+            buttonText: 'Start',
+        });
+        this.footer = this.createDiv({
+            className: 'main-container__footer',
+        });
+        this.buttonsNumber = this.createDiv({
+            className: 'buttons-container__buttons-number',
+        });
+        this.mainContainer = this.createDiv({ className: 'root__main-container' });
+        this.buttonsHeaderContainer = this.createDiv({
+            className: 'main-container__buttons-container',
+        });
 
-    this.header.append(this.date);
-    this.header.append(this.number);
-    this.mainContainer.append(this.header);
-    this.buttonsHeaderContainer.append(this.buttonsNumber);
-    this.mainContainer.append(this.buttonsHeaderContainer);
-    this.footer.append(this.resetButton);
-    this.mainContainer.append(this.footer);
-    this.root.append(this.mainContainer);
-  };
+        this.header.append(this.date);
+        this.header.append(this.counter);
+        this.mainContainer.append(this.header);
+        this.buttonsHeaderContainer.append(this.buttonsNumber);
+        this.mainContainer.append(this.buttonsHeaderContainer);
+        this.footer.append(this.resetButton);
+        this.mainContainer.append(this.footer);
+        this.root.append(this.mainContainer);
+    };
 
-  createCell = (element) => {
-    this.cellButton = this.createButton({
-      className: `cell-div__cell-button`,
-      id: 'cell-'+ element,
-      buttonText: element
-    });
-     
-    this.cellDiv = this.createDiv({
-      className: "button-container__cell-div",
-    });
+    createCell = element => {
+        this.cellButton = this.createButton({
+            className: `cell-div__cell-button`,
+            id: 'cell-' + element,
+            buttonText: element,
+        });
 
-    this.cellDiv.append(this.cellButton);
-    this.buttonsNumber.append(this.cellDiv);
-  };
+        this.cellDiv = this.createDiv({
+            className: 'button-container__cell-div',
+        });
 
-  createDiv = props => {
-    const div = document.createElement("div");
+        this.cellDiv.append(this.cellButton);
+        this.buttonsNumber.append(this.cellDiv);
+    };
 
-    props.className && (div.className = props.className);
-    props.id && (div.id = props.id);
-    props.innerHTML && ( div.innerHTML = props.innerHTML);
-    props.divText && (div.innerText = props.divText)
-    
+    createDiv = props => {
+        const div = document.createElement('div');
 
-    return div;
-  };
+        props.className && (div.className = props.className);
+        props.id && (div.id = props.id);
+        props.innerHTML && (div.innerHTML = props.innerHTML);
+        props.divText && (div.innerText = props.divText);
 
-  createButton = props => {
-    const button = document.createElement("button");
+        return div;
+    };
 
-    props.className && (button.className = props.className);
-    props.buttonText && (button.innerText = props.buttonText);
-    props.id && (button.id = props.id);
+    createButton = props => {
+        const button = document.createElement('button');
 
-    return button;
-  };
+        props.className && (button.className = props.className);
+        props.buttonText && (button.innerText = props.buttonText);
+        props.id && (button.id = props.id);
 
-  gameCounter = cb => {
-    this.buttonsHeaderContainer.addEventListener('click', () => {
-      cb()
-    })
-  };
+        return button;
+    };
 
-  showGameCount = number => {
-    this.number.innerText = number;
-  };
+    showCounter = number => {
+        this.counter.innerText = number;
+    };
 }
 export default View;
