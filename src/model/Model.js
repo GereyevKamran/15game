@@ -5,7 +5,6 @@ class Model {
     this.count = 0;
   };
 
-
   getDataBase = () => this.dataBase;
   getCount = () => this.count;  
   
