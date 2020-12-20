@@ -5,7 +5,9 @@
   "scripts": {
     "build": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix"
   },
   "repository": {
     "type": "git",
@@ -37,9 +39,17 @@
     "webpack-dev-server": "3.9.0"
   },
   "devDependencies": {
-    "eslint": "^7.15.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-config-rallycoding": "^3.2.0",
-    "eslint-plugin-react": "^7.21.5"
+    "eslint-plugin-html": "^6.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.21.5",
+    "prettier": "^2.2.1"
   },
+  "keywords": [],
   "description": ""
 }
