@@ -32,9 +32,9 @@ class Controller {
         let totalSeconds = 0;
         this.timer = setInterval(() => {
             ++totalSeconds;
-            let hour = Math.floor(totalSeconds / 3600);
-            let minute = Math.floor((totalSeconds - hour * 3600) / 60);
-            let seconds = totalSeconds - (hour * 3600 + minute * 60);
+            const hour = Math.floor(totalSeconds / 3600);
+            const minute = Math.floor((totalSeconds - hour * 3600) / 60);
+            const seconds = totalSeconds - (hour * 3600 + minute * 60);
             this.time = hour + ':' + minute + ':' + seconds;
             document.querySelector('.header__display-date').innerHTML = this.time;
         }, 1000);
