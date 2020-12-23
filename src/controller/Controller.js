@@ -20,12 +20,15 @@ class Controller {
         };
 
         rest.saveGame(game);
-    };
+        this.showGame();
+    }
 
     showGame = () => {
         const games = rest.getAllGames();
-        
-        
+
+        games.forEach( game => {
+            this.view.createGameForm(game);
+        });    
     }
 
     

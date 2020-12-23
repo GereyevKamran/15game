@@ -16,7 +16,7 @@ class View {
     saveBtnListener = cb => {
         this.saveButton.addEventListener('click', () => {
             cb();
-        })
+        });
     }
 
     NumbersBtnListener = cb => {
@@ -24,6 +24,7 @@ class View {
             cb(event.target.innerText);
         });
     };
+
 
     createGameForm = () => {
         this.root = document.getElementById('root');
@@ -56,7 +57,13 @@ class View {
         this.buttonsHeaderContainer = this.createDiv({
             className: 'main-container__buttons-container',
         });
-
+        const historyContainer = this.createDiv({
+          className: 'root__history-container'
+      });
+      this.gamesList = this.createUl({
+          className: 'history-container__games-list'
+      });
+        
         this.header.append(this.date);
         this.header.append(this.counter);
         this.mainContainer.append(this.header);
@@ -66,17 +73,18 @@ class View {
         this.footer.append(this.saveButton);
         this.mainContainer.append(this.footer);
         this.root.append(this.mainContainer);
+        historyContainer.append(this.gamesList);
+        this.root.append(historyContainer);
     };
 
-    createHistoryList = () => {
-        const historyContainer = this.createDiv({
-            className: 'root__history-container'
+    createHistoryList = (game) => {
+      this.gamesList.innerHTML = "";
+       
+        game.forEach( element => {
+          const gameLi = this.createLi({id: element.id, text:`${ element.id}. time: ${element.time} click: ${element.counter}`});
+          this.gamesList.append(gameLi);
         });
-        const gamesList = this.createUl({
-            className: 'history-container__games-list'
-        });
-        historyContainer.append(gamesList);
-        this.root.append(historyContainer);
+              
     }
 
     createCell = element => {
@@ -111,8 +119,18 @@ class View {
         props.className && (ul.className = props.className);
         props.id && (ul.id = props.id);
 
-        return div;
+        return ul;
     };
+
+    createLi = props => {
+      const li = document.createElement('li');
+
+      props.id && (li.id = props.id);
+      props.text && (li.innerText = props.text);
+      props.className && (li.className = props.className);
+
+      return li;
+    }
 
     createButton = props => {
         const button = document.createElement('button');
