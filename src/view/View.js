@@ -13,6 +13,12 @@ class View {
         });
     };
 
+    saveBtnListener = cb => {
+        this.saveButton.addEventListener('click', () => {
+            cb();
+        })
+    }
+
     NumbersBtnListener = cb => {
         this.buttonsNumber.addEventListener('click', event => {
             cb(event.target.innerText);
@@ -35,6 +41,11 @@ class View {
             id: 'reset_button',
             buttonText: 'Start',
         });
+        this.saveButton = this.createButton({
+            className: 'footer__save-button',
+            id: 'save_button',
+            buttonText: 'Save',
+        });
         this.footer = this.createDiv({
             className: 'main-container__footer',
         });
@@ -52,9 +63,21 @@ class View {
         this.buttonsHeaderContainer.append(this.buttonsNumber);
         this.mainContainer.append(this.buttonsHeaderContainer);
         this.footer.append(this.resetButton);
+        this.footer.append(this.saveButton);
         this.mainContainer.append(this.footer);
         this.root.append(this.mainContainer);
     };
+
+    createHistoryList = () => {
+        const historyContainer = this.createDiv({
+            className: 'root__history-container'
+        });
+        const gamesList = this.createUl({
+            className: 'history-container__games-list'
+        });
+        historyContainer.append(gamesList);
+        this.root.append(historyContainer);
+    }
 
     createCell = element => {
         this.cellButton = this.createButton({
@@ -82,6 +105,15 @@ class View {
         return div;
     };
 
+    createUl = props => {
+        const ul = document.createElement('ul');
+
+        props.className && (ul.className = props.className);
+        props.id && (ul.id = props.id);
+
+        return div;
+    };
+
     createButton = props => {
         const button = document.createElement('button');
 
@@ -96,4 +128,5 @@ class View {
         this.counter.innerText = number;
     };
 }
+
 export default View;

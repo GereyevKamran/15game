@@ -1,3 +1,4 @@
+const rest = require("./rest/REST");
 class Controller {
     constructor(view, model) {
         this.view = view;
@@ -10,6 +11,24 @@ class Controller {
         this.view.startBtnListener(this.startGame);
         this.view.NumbersBtnListener(this.changePlaces);
     };
+
+    saveGame = () => {
+        const game = {
+            counter: this.model.getCounter(),
+            time: this.time,
+            db: this.model.getDataBase()
+        };
+
+        rest.saveGame(game);
+    };
+
+    showGame = () => {
+        const games = rest.getAllGames();
+        
+        
+    }
+
+    
 
     changePlaces = number => {
         const index = this.model.getDataBase().indexOf(Number(number));
